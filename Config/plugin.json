@@ -1,0 +1,17 @@
+{
+	"name": "List",
+	"description": "Plugin for enabling formatted lists of Links to be viewed in Nodes",
+
+	"author": "Mike Tallroth",
+	"authorEmail": "mike.tallroth@gmail.com",
+	"authorUrl": "http://github.com/miketallroth",
+
+	"dependencies": {
+		"plugins": [
+			"acl",
+			"extensions",
+			"users",
+			"migrations"
+		]
+	}
+}

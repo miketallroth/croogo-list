@@ -1,0 +1,74 @@
+# List
+
+**List** is a plugin for the Croogo CMS which provides an element to view a well formatted list of Links in the context of a Node. Typically, a list of links that are not intended to reside in a menu would need to be created and maintained within the body of a Node. This can become unwieldy over time, especially updating fields such as the target field. Also, maintaining any associated text with each link can be done, but the full capabilities are not available, or as easily accessed through the inline editors. List makes all this much simpler.
+
+It is powered by the [Croogo](http://croogo.org) CMS framework.
+
+## Features
+  * Display a list of Links each with associated text in the context of a Node.
+  * All Link creation and maintenance is handled within the existing Menus/Links framework.
+    * Reorder or reparent Links simply.
+    * Edit Link title, url, and description without concern for formatting.
+  * Surrounding images, text or other content can be added to the Node as usual, before or after the list.
+  * Customization can be done through \[menu:...\] configuration options or element overrides in a custom theme.
+  * Multiple layers are handled even providing options for layer specific wrapping tags and classes.
+
+## Requirements
+  * Croogo 2.0.0+
+
+## Installation
+
+  * cd Plugin/
+  * git clone git@github.com:miketallroth/croogo-list.git List
+  * In Admin dashboard, go to Extensions > Plugins, then enable the plugin.
+
+## Usage
+
+  * Create a new Menu, (this will be displayed in your Node)
+    * Mark it Published and Save.
+    * Also create some Links including a title, url and description.
+  * Create a new Block, (this ensures the menu is queried before rendering)
+    * Assign it to Region "none",
+    * Include \[menu:your-menu-alias\] in the body,
+    * Mark it Published and Save.
+  * Create a new Page, (this is where the list will be displayed)
+    * Include \[menu:your-menu-alias element=List.linklist\] in the body.
+    * Mark it Published and Save.
+  * Load your newly created Page to see your new Link List!
+
+  * Include introductory or summary text and images in the Node as desired around your \[menu:...\] Element.
+  * Include a good description for each link. This is especially helpful for websites that are research hubs. The description field is found under the Misc tab.
+  * Create a link to attachments if desired. Useful for describing spreadsheets or other downloadable tools.
+  * If Link target is left unset, \_blank will be assumed, forcing a new tab to be opened when clicked.
+
+## Customization
+
+  * Configuration options with defaults; \[menu:your-menu-alias element=List.linklist listTag=div\]
+    * 'listTag' => 'ul',      // wraps entire list
+    * 'listClass' => '',
+    * 'groupTag' => null,     // wraps each lead with its item set
+    * 'groupClass' => '',
+    * 'leadTag' => 'h3',      // wraps each lead
+    * 'leadClass' => '',
+    * 'itemsetTag' => null,   // wraps each set of items w/o lead
+    * 'itemsetClass' => '',
+    * 'itemTag' => 'li',      // wraps each item (link)
+    * 'itemClass' => '',
+  * Layered configuration options,
+    * 'leadTag1' will define the leadTag at depth 1 specifically, without affecting other depths.
+    * Valid for leadTag and itemTag only.
+    * First (top) level is depth=1.
+  * Override Elements in your custom Theme,
+    * ./View/Themed/YourTheme/Plugin/List/Elements/
+      * linklist.ctp
+      * linklist_lead.ctp
+      * linklist_item.ctp
+
+## Optimization
+
+  * Optimize the Block by setting Visibilities. If you followed the instructions above, your Block will query your Menu for every page, regardless of whether you are rendering the list or not. To reduce the load, you could set Visibilities on your Block to only query that Menu when the system is rendering the exact page where you need it.
+  * If you are rendering only a few pages like this in your system, you need to create only one Block to query all of your Menus for lists. If you do the Visibility optimization above, be sure to include each page you will be rendering a list in the Block Visibilities field. This is the simplest option. However, if you are rendering many different Menus in this fashion, you may want to divide the Menus into groups in different blocks and limit the Visibility of any individual Block. You need to find the balance between performance and maintenance.
+
+## Links
+
+  * **Official website**: [https://github.com/miketallroth/croogo-list](https://github.com/miketallroth/croogo-list)
